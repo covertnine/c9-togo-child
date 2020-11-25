@@ -63,3 +63,16 @@ if (!function_exists('c9child_enqueue_editor_styles')) {
 		wp_enqueue_style('c9-child-style', get_stylesheet_directory_uri() . '/style.css', array('c9-client-styles'));
 	}
 }
+
+
+/* remove jetpack messages */
+add_filter('woocommerce_helper_suppress_admin_notices', '__return_true');
+
+add_action('after_setup_theme', 'c9togo_remove_related_support');
+
+function c9togo_remove_related_support()
+{
+
+	// remove related products from single
+	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
+}
