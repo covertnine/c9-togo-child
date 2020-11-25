@@ -64,10 +64,6 @@ if (!function_exists('c9child_enqueue_editor_styles')) {
 	}
 }
 
-
-/* remove jetpack messages */
-add_filter('woocommerce_helper_suppress_admin_notices', '__return_true');
-
 add_action('after_setup_theme', 'c9togo_remove_related_support');
 
 function c9togo_remove_related_support()
@@ -76,3 +72,12 @@ function c9togo_remove_related_support()
 	// remove related products from single
 	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
 }
+
+/* remove jetpack messages */
+add_filter('woocommerce_helper_suppress_admin_notices', '__return_true');
+
+/* remove woodlite nag */
+remove_action('admin_notices', 'byconsolewooodt_free_plugin_activation_admin_notice_error');
+
+/* remove nmi processor nag */
+remove_action('admin_notices', 'patsatech_license_woo_nmi_direct_notice');
