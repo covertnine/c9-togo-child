@@ -31,7 +31,9 @@ if (!function_exists('c9child_enqueue_styles')) {
 		wp_enqueue_style($parent_style, get_template_directory_uri() . '/assets/dist/css/theme.min.css');
 		// Enqueue Child theme's stylesheet.
 		// Setting 'parent-style' as a dependency will ensure that the child theme stylesheet loads after it.
-		wp_enqueue_style('c9-togo-default-font', 'https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap', array($parent_style));
+		if ($c9_default_font == 'no') {
+			wp_enqueue_style('c9togo-font-default', 'https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap', array('c9-styles'));
+		}
 		wp_enqueue_style('c9-child-style', get_stylesheet_directory_uri() . '/style.css', array($parent_style));
 	}
 }
@@ -46,11 +48,10 @@ if (!function_exists('c9child_enqueue_scripts')) {
 	 */
 	function c9child_enqueue_scripts()
 	{
-
-		wp_enqueue_script('c9-gsap', get_stylesheet_directory_uri() . '/js/gsap.min.js', array('jquery'), false, true);
-		wp_enqueue_script('c9togo-scrollto', get_stylesheet_directory_uri() . '/js/ScrollToPlugin.min.js', array('jquery', 'c9-gsap'), false, true);
-		wp_enqueue_script('c9togo-scrolltrigger', get_stylesheet_directory_uri() . '/js/ScrollTrigger.min.js', array('jquery', 'c9-gsap'), false, true);
-		wp_enqueue_script('child-script', get_stylesheet_directory_uri() . '/js/main.js', array('jquery', 'c9-gsap'), false, true);
+		wp_enqueue_script('gsap', get_stylesheet_directory_uri() . '/js/gsap.min.js', array('jquery'), '', true);
+		wp_enqueue_script('scrollto', get_stylesheet_directory_uri() . '/js/ScrollToPlugin.min.js', array('jquery'), '', true);
+		wp_enqueue_script('scrollmagic', get_stylesheet_directory_uri() . '/js/ScrollTrigger.min.js', '', '', true);
+		wp_enqueue_script('c9-togo-child-script', get_stylesheet_directory_uri() . '/js/main.js', array('jquery'), '', true);
 	}
 }
 
@@ -59,8 +60,10 @@ if (!function_exists('c9child_enqueue_editor_styles')) {
 
 	function c9child_enqueue_editor_styles()
 	{
-		wp_enqueue_style('c9-togo-default-font', 'https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap', array('c9-styles'));
-		wp_enqueue_style('c9-child-style', get_stylesheet_directory_uri() . '/style.css', array('c9-client-styles'));
+		if ($c9_default_font == 'no') {
+			wp_enqueue_style('c9togo-font-default', 'https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap', array('c9-styles'));
+		}
+		wp_enqueue_style('c9-child-style', get_stylesheet_directory_uri() . '/style.css', array('c9togo-client-styles'));
 	}
 }
 

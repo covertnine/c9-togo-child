@@ -6,26 +6,26 @@ jQuery(document).ready(function () {
         if (jQuery("body.home").length) {
             $(".c9").on(
                 "click",
-                ".nav-link[href^='/#'], .dropdown-item[href^='/#'], a[href^='/#'], a[href^='#']:not(.btn-nav-search):not(.dropdown-toggle):not(.btn-back-to-top)",
+                ".nav-item:not(.has-c9-icon) .nav-link[href^='/#'], .nav-item:not(.has-c9-icon) .dropdown-item[href^='/#'], .nav-item:not(.has-c9-icon) a[href^='/#'], .nav-item:not(.has-c9-icon) a[href^='#']:not(.btn-nav-search):not(.dropdown-toggle):not(.btn-back-to-top)",
                 function (event) {
                     event.preventDefault();
 
                     $(".navbar-toggler").attr("aria-expanded", "false").addClass('collapsed');
 
                     //what link was clicked
-                    var sectionLink = $(event.target).attr("href");
-                    if (sectionLink.substr(0, 1) === '/') {
+                    var sectionLink = $(this).attr("href");
+                    if ((typeof sectionLink !== 'undefined') && (sectionLink.substr(0, 1) === '/')) {
                         sectionLink = sectionLink.substr(1);
                     }
-
+                    // console.log(sectionLink);
                     // scroll to that part of the page
                     gsap.to(window, {
-                        duration: 1.5,
+                        duration: 2,
                         scrollTo: {
                             y: sectionLink,
-                            offsetY: 55
+                            offsetY: 65
                         },
-                        ease: "power1.out"
+                        ease: "expo.out"
                     });
 
                     $(".navbar-collapse").toggleClass("show");
@@ -43,10 +43,11 @@ if (jQuery("body.home").length) {
     var navLinks = [];
 
     jQuery(
-        ".nav-link[href^='/#'], .dropdown-item[href^='/#'], .nav-link[href^='#']:not(.btn-nav-search):not(.dropdown-toggle), .dropdown-item[href^='#']:not(.dropdown-toggle)"
+        ".nav-item:not(.has-c9-icon) .nav-link[href^='/#'], .nav-item:not(.has-c9-icon) .dropdown-item[href^='/#'], .nav-item:not(.has-c9-icon) .nav-link[href^='#']:not(.btn-nav-search):not(.dropdown-toggle), .nav-item:not(.has-c9-icon) .dropdown-item[href^='#']:not(.dropdown-toggle)"
     ).each(function () {
         // get all link IDs and put them in array from header and direct clicked scroll links
         navLinks.push(jQuery(this).attr("href"));
+        // console.log(jQuery(this).attr("href"));
     });
 
     //loop through those links and add a scene for each that links up properly
