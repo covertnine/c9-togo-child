@@ -23,7 +23,7 @@ jQuery(document).ready(function () {
                         duration: 2,
                         scrollTo: {
                             y: sectionLink,
-                            offsetY: 65
+                            offsetY: 43
                         },
                         ease: "expo.out"
                     });
